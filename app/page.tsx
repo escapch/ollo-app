@@ -3,7 +3,8 @@ import { Container } from '@/components/shared/container';
 import { InputThread } from '@/components/shared/inputThread';
 import { ThreadsDrawer } from '@/components/shared/threadsDrawer';
 import { Thread } from '@/components/shared/thread';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useModal from '@/hooks/useModal';
 
 const mockData = [
   {
@@ -25,7 +26,13 @@ const mockData = [
 ];
 export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
+  const [checkUser, setChekUser] = useState(false);
+  const modal = useModal();
+  useEffect(() => {
+    if (!checkUser) {
+      modal?.open();
+    }
+  }, []);
   return (
     <>
       <Container>
@@ -36,7 +43,10 @@ export default function Home() {
           ))}
         </div>
       </Container>
-      <ThreadsDrawer setIsDrawerOpen={setIsDrawerOpen} isDrawerOpen={isDrawerOpen} />
+      <ThreadsDrawer
+        setIsDrawerOpen={setIsDrawerOpen}
+        isDrawerOpen={isDrawerOpen}
+      />
     </>
   );
 }
