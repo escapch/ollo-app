@@ -5,6 +5,8 @@ import { ThreadsDrawer } from '@/components/shared/threadsDrawer';
 import { Thread } from '@/components/shared/thread';
 import { useEffect, useState } from 'react';
 import useModal from '@/hooks/useModal';
+import { signOut } from 'firebase/auth';
+import { auth } from './firebase';
 
 const mockData = [
   {
@@ -26,13 +28,14 @@ const mockData = [
 ];
 export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [checkUser, setChekUser] = useState(false);
+  const [checkUser, setChekUser] = useState(true);
   const modal = useModal();
   useEffect(() => {
     if (!checkUser) {
       modal?.open();
     }
   }, []);
+
   return (
     <>
       <Container>
@@ -42,11 +45,10 @@ export default function Home() {
             <Thread key={index} {...item} />
           ))}
         </div>
+        <button onClick={() => modal?.open()}>Open</button>
+        <button onClick={() => signOut(auth)}>logout</button>
       </Container>
-      <ThreadsDrawer
-        setIsDrawerOpen={setIsDrawerOpen}
-        isDrawerOpen={isDrawerOpen}
-      />
+      <ThreadsDrawer setIsDrawerOpen={setIsDrawerOpen} isDrawerOpen={isDrawerOpen} />
     </>
   );
 }

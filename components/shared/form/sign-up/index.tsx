@@ -1,16 +1,30 @@
 import React from 'react';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '@/app/firebase';
+import useAuthStore from '@/hooks/useAuthStore';
+// import { auth, googleProvider } from '@';
 
 type Props = {};
 
 export const SignUp = (props: Props) => {
+  const { signIn } = useAuthStore();
+  const handleGoogleSignUp = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      console.log('User Info:', result.user);
+      signIn(result.user);
+      // Handle successful sign-up (e.g., navigate to dashboard)
+    } catch (error) {
+      console.error('Error signing up with Google:', error);
+    }
+  };
+
   return (
-    <div className="dark">
-      <div className=" mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-neutral-900 dark:border-neutral-700 w-[342px] m-auto">
+    <div className="dark m-4">
+      <div className=" mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-neutral-900 dark:border-neutral-700 ">
         <div className="p-4 sm:p-7">
           <div className="text-center">
-            <h1 className=" block text-2xl font-bold text-gray-800 dark:text-white">
-              Sign up
-            </h1>
+            <h1 className=" block text-2xl font-bold text-gray-800 dark:text-white">Sign up</h1>
             <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
               Already have an account?
               <a
@@ -25,15 +39,10 @@ export const SignUp = (props: Props) => {
           <div className="mt-5">
             <button
               type="button"
+              onClick={() => handleGoogleSignUp()}
               className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
             >
-              <svg
-                className="w-4 h-auto"
-                width="46"
-                height="47"
-                viewBox="0 0 46 47"
-                fill="none"
-              >
+              <svg className="w-4 h-auto" width="46" height="47" viewBox="0 0 46 47" fill="none">
                 <path
                   d="M46 24.0287C46 22.09 45.8533 20.68 45.5013 19.2112H23.4694V27.9356H36.4069C36.1429 30.1094 34.7347 33.37 31.5957 35.5731L31.5663 35.8669L38.5191 41.2719L38.9885 41.3306C43.4477 37.2181 46 31.1669 46 24.0287Z"
                   fill="#4285F4"
@@ -61,10 +70,7 @@ export const SignUp = (props: Props) => {
             <form>
               <div className="grid gap-y-4">
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm mb-2 dark:text-white"
-                  >
+                  <label htmlFor="email" className="block text-sm mb-2 dark:text-white">
                     Email address
                   </label>
                   <div className="relative">
@@ -72,7 +78,7 @@ export const SignUp = (props: Props) => {
                       type="email"
                       id="email"
                       name="email"
-                      className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-neutral-600"
                       required
                       aria-describedby="email-error"
                     />
@@ -89,20 +95,13 @@ export const SignUp = (props: Props) => {
                       </svg>
                     </div>
                   </div>
-                  <p
-                    className="hidden text-xs text-red-600 mt-2"
-                    id="email-error"
-                  >
-                    Please include a valid email address so we can get back to
-                    you
+                  <p className="hidden text-xs text-red-600 mt-2" id="email-error">
+                    Please include a valid email address so we can get back to you
                   </p>
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm mb-2 dark:text-white"
-                  >
+                  <label htmlFor="password" className="block text-sm mb-2 dark:text-white">
                     Password
                   </label>
                   <div className="relative">
@@ -110,7 +109,7 @@ export const SignUp = (props: Props) => {
                       type="password"
                       id="password"
                       name="password"
-                      className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-neutral-600"
                       required
                       aria-describedby="password-error"
                     />
@@ -127,19 +126,13 @@ export const SignUp = (props: Props) => {
                       </svg>
                     </div>
                   </div>
-                  <p
-                    className="hidden text-xs text-red-600 mt-2"
-                    id="password-error"
-                  >
+                  <p className="hidden text-xs text-red-600 mt-2" id="password-error">
                     8+ characters required
                   </p>
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="confirm-password"
-                    className="block text-sm mb-2 dark:text-white"
-                  >
+                  <label htmlFor="confirm-password" className="block text-sm mb-2 dark:text-white">
                     Confirm Password
                   </label>
                   <div className="relative">
@@ -147,7 +140,7 @@ export const SignUp = (props: Props) => {
                       type="password"
                       id="confirm-password"
                       name="confirm-password"
-                      className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-neutral-600"
                       required
                       aria-describedby="confirm-password-error"
                     />
@@ -164,10 +157,7 @@ export const SignUp = (props: Props) => {
                       </svg>
                     </div>
                   </div>
-                  <p
-                    className="hidden text-xs text-red-600 mt-2"
-                    id="confirm-password-error"
-                  >
+                  <p className="hidden text-xs text-red-600 mt-2" id="confirm-password-error">
                     Password does not match the password
                   </p>
                 </div>
@@ -178,14 +168,11 @@ export const SignUp = (props: Props) => {
                       id="remember-me"
                       name="remember-me"
                       type="checkbox"
-                      className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-neutral-600"
                     />
                   </div>
                   <div className="ms-3">
-                    <label
-                      htmlFor="remember-me"
-                      className="text-sm dark:text-white"
-                    >
+                    <label htmlFor="remember-me" className="text-sm dark:text-white">
                       I accept the{' '}
                       <a
                         className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
