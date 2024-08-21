@@ -6,7 +6,7 @@ import { Container } from '@/components/shared/container';
 
 const roboto = Roboto({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
+  weight: ['100', '300', '400', '500', '700'],
 });
 
 export const metadata: Metadata = {
@@ -21,10 +21,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} flex flex-col min-h-screen text-white relative`}>
-        
-          <main className="flex-grow">{children}</main>
-          <Navigation />
-        
+        <main className="flex-grow">{children}</main>
+        <Navigation />
       </body>
     </html>
   );
