@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 type Props = {};
@@ -9,17 +10,8 @@ export const SignIn = (props: Props) => {
         <div className="p-4 sm:p-7">
           <div className="text-center">
             <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-              Sign in
+              Войти
             </h1>
-            <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
-              Don't have an account yet?
-              <a
-                className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                href="../../examples/html/signup.html"
-              >
-                Sign up here
-              </a>
-            </p>
           </div>
 
           <div className="mt-5">
@@ -51,11 +43,11 @@ export const SignIn = (props: Props) => {
                   fill="#EB4335"
                 ></path>
               </svg>
-              Sign in with Google
+              Войти с помощью Google
             </button>
 
             <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600">
-              Or
+              или
             </div>
 
             <form>
@@ -65,7 +57,7 @@ export const SignIn = (props: Props) => {
                     htmlFor="email"
                     className="block text-sm mb-2 dark:text-white"
                   >
-                    Email address
+                    Email
                   </label>
                   <div className="relative">
                     <input
@@ -104,13 +96,13 @@ export const SignIn = (props: Props) => {
                       htmlFor="password"
                       className="block text-sm mb-2 dark:text-white"
                     >
-                      Password
+                      Пароль
                     </label>
                     <a
                       className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
                       href="../../examples/html/recover-account.html"
                     >
-                      Forgot password?
+                      Забыли пароль?
                     </a>
                   </div>
                   <div className="relative">
@@ -156,7 +148,7 @@ export const SignIn = (props: Props) => {
                       htmlFor="remember-me"
                       className="text-sm dark:text-white"
                     >
-                      Remember me
+                      Запомнить меня
                     </label>
                   </div>
                 </div>
@@ -165,7 +157,7 @@ export const SignIn = (props: Props) => {
                   type="submit"
                   className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                 >
-                  Sign in
+                  Войти
                 </button>
               </div>
             </form>

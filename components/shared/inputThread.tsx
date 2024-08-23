@@ -5,15 +5,18 @@ import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
 import { Input } from '../ui/input';
 import useAuthStore from '@/hooks/useAuthStore';
 import useModal from '@/hooks/useModal';
+import Link from 'next/link';
 interface Props {
   className?: string;
   setIsDrawerOpen: (open: boolean) => void;
 }
 
-export const InputThread: React.FC<Props> = ({ className, setIsDrawerOpen }) => {
+export const InputThread: React.FC<Props> = ({
+  className,
+  setIsDrawerOpen,
+}) => {
   const { user } = useAuthStore();
   const modal = useModal();
-  console.log(user);
 
   return (
     <div className={cn('p-4 ', className)}>
@@ -27,7 +30,10 @@ export const InputThread: React.FC<Props> = ({ className, setIsDrawerOpen }) => 
             <p>{user.displayName}</p>
             <Input
               placeholder="Что нового?"
-              className={cn('bg-transparent border-none p-0 h-0 py-4', className)}
+              className={cn(
+                'bg-transparent border-none p-0 h-0 py-4',
+                className,
+              )}
               id="thread"
               onClick={() => setIsDrawerOpen(true)}
             />
@@ -35,9 +41,12 @@ export const InputThread: React.FC<Props> = ({ className, setIsDrawerOpen }) => 
         </div>
       ) : (
         <div className="flex gap-3 items-center justify-center font-light">
-          <span className="text-[#ffb100]">Чтобы создать ollo надо войти в ollo</span>
+          <span className="text-[#ffb100]">
+            Чтобы создать ollo надо войти в ollo
+          </span>
           <div className="text-blue-400">
-            <button onClick={() => modal?.open()}>Войти</button> / <button>Регистрация</button>
+            <Link href="/sign-in">Войти</Link> /{' '}
+            <Link href="/sign-up">Регистрация</Link>
           </div>
         </div>
       )}

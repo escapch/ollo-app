@@ -6,7 +6,7 @@ import { Thread } from '@/components/shared/thread';
 import { useEffect, useState } from 'react';
 import useModal from '@/hooks/useModal';
 import { signOut } from 'firebase/auth';
-import { auth } from './firebase';
+import { auth } from './firebase/config';
 
 const mockData = [
   {
@@ -36,6 +36,8 @@ export default function Home() {
     }
   }, []);
 
+  console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
+
   return (
     <>
       <Container>
@@ -45,10 +47,12 @@ export default function Home() {
             <Thread key={index} {...item} />
           ))}
         </div>
-        <button onClick={() => modal?.open()}>Open</button>
         <button onClick={() => signOut(auth)}>logout</button>
       </Container>
-      <ThreadsDrawer setIsDrawerOpen={setIsDrawerOpen} isDrawerOpen={isDrawerOpen} />
+      <ThreadsDrawer
+        setIsDrawerOpen={setIsDrawerOpen}
+        isDrawerOpen={isDrawerOpen}
+      />
     </>
   );
 }
