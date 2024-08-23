@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
 import Navigation from '@/components/shared/navigation';
-import { Container } from '@/components/shared/container';
+import { AuthProvider } from '@/components/shared/authProvider';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -20,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} flex flex-col min-h-screen text-white relative`}>
+      <body
+        className={`${roboto.className} flex flex-col min-h-screen text-white relative`}
+      >
+        <AuthProvider />
         <main className="flex-grow">{children}</main>
         <Navigation />
       </body>
