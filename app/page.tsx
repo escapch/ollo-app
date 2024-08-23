@@ -36,8 +36,6 @@ export default function Home() {
     }
   }, []);
 
-  console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
-
   return (
     <>
       <Container>
@@ -49,10 +47,7 @@ export default function Home() {
         </div>
         <button onClick={() => signOut(auth)}>logout</button>
       </Container>
-      <ThreadsDrawer
-        setIsDrawerOpen={setIsDrawerOpen}
-        isDrawerOpen={isDrawerOpen}
-      />
+      <ThreadsDrawer setIsDrawerOpen={setIsDrawerOpen} isDrawerOpen={isDrawerOpen} />
     </>
   );
 }
